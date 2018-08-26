@@ -13,4 +13,16 @@ public class NetworkAddress {
         this.ipv6 = ipv6;
         this.port = port;
     }
+
+    public BigInteger getServices() {
+        return services;
+    }
+
+    public IPv6Address getIpv6() {
+        return ipv6;
+    }
+
+    public int getPort() {
+        return port;
+    }
 }

@@ -2,16 +2,18 @@ package com.rocketchain.codec.primitive;
 
 import com.rocketchain.codec.Codec;
 import com.rocketchain.codec.InPointCodec;
+import com.rocketchain.codec.VariableStringCodec;
 import com.rocketchain.proto.InPoint;
 import com.rocketchain.utils.lang.Option;
 
 import java.nio.charset.Charset;
 
 public class Codecs {
-    private static BooleanCodec Boolean = new BooleanCodec();
+    public static BooleanCodec Boolean = new BooleanCodec();
 
     public static ByteCodec Byte = new ByteCodec();
 
+    public static UInt16Codec UInt16 = new UInt16Codec();
 
     public static Int32LCodec Int32L = new Int32LCodec();
     public static UInt32LCodec UInt32L = new UInt32LCodec();
@@ -22,14 +24,16 @@ public class Codecs {
 
     public static VariableIntCodec VariableInt = new VariableIntCodec();
 
+    public static VariableStringCodec VariableString = variableString(VariableInt);
+
     public static VariableListCodec<Option<InPoint>> OptionalInPointListCodec = variableListOf(optional(new InPointCodec()));
 
 
-    public static VariableByteBufCodec variableByteBuf( Codec<Long>  lengthCodec  ) {
-        return new  VariableByteBufCodec(lengthCodec);
+    public static VariableByteBufCodec variableByteBuf(Codec<Long> lengthCodec) {
+        return new VariableByteBufCodec(lengthCodec);
     }
 
-    public static  VariableByteBufCodec VariableByteBuf = variableByteBuf( VariableInt );
+    public static VariableByteBufCodec VariableByteBuf = variableByteBuf(VariableInt);
 
     public static CStringCodec CString = new CStringCodec(Charset.forName("UTF-8"));
 
@@ -41,7 +45,7 @@ public class Codecs {
         return new FixedReversedByteArrayCodec(length);
     }
 
-    public FixedByteArrayCodec fixedByteArray(int length) {
+    public static FixedByteArrayCodec fixedByteArray(int length) {
         return new FixedByteArrayCodec(length);
     }
 
@@ -61,4 +65,7 @@ public class Codecs {
         return variableListOf(VariableInt, valueCodec);
     }
 
+    public static VariableStringCodec variableString(Codec<Long> lengthCodec) {
+        return new VariableStringCodec(lengthCodec);
+    }
 }
