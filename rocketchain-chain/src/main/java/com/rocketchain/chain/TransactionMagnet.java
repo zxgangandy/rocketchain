@@ -114,7 +114,7 @@ public class TransactionMagnet {
             txPoolIndex.delTransactionFromPool(db, transactionHash);
         }
 
-        chainEventListener.onRemoveTransaction(db, transactionHash, transaction);
+        //chainEventListener.onRemoveTransaction(db, transactionHash, transaction);
     }
 
 
@@ -349,7 +349,7 @@ public class TransactionMagnet {
                 }
             }
 
-            chainEventListener.onNewTransaction(db, transactionHash, transaction, chainBlock, transactionIndex);
+            //chainEventListener.onNewTransaction(db, transactionHash, transaction, chainBlock, transactionIndex);
         }
 
         // TODO : Step 2 : check if the sum of input values is greater than or equal to the sum of outputs.

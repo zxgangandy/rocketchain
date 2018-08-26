@@ -125,8 +125,7 @@ public class DiskBlockStorage implements BlockStorage, BlockDatabaseForRecordSto
         // Update the block info.
         BlockFileInfo blockFileInfo = getBlockFileInfo(db, lastFileNumber);
         if (blockFileInfo == null) {
-            blockFileInfo = new BlockFileInfo(0, 0L, blockHeight, blockHeight, blockTimestamp, blockTimestamp
-            );
+            blockFileInfo = new BlockFileInfo(0, 0L, blockHeight, blockHeight, blockTimestamp, blockTimestamp);
         }
 
         // TODO : Need to make sure if it is ok even though a non-best block decreases the lastBlockHeight.

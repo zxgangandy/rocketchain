@@ -8,7 +8,7 @@ public class InPointCodec implements Codec<InPoint> {
     @Override
     public InPoint transcode(CodecInputOutputStream io, InPoint obj) {
         Hash transactionHash = new HashCodec().transcode(io, obj.getTransactionHash());
-        int inputIndex = Codecs.Int32L.transcode(io, obj.getInputIndex());
+        Integer inputIndex = Codecs.Int32L.transcode(io, obj.getInputIndex());
 
         if (io.getInput()) {
             return new InPoint(

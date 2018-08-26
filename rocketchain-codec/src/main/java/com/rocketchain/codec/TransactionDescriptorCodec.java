@@ -17,7 +17,7 @@ public class TransactionDescriptorCodec implements Codec<TransactionDescriptor> 
     @Override
     public TransactionDescriptor transcode(CodecInputOutputStream io, TransactionDescriptor obj) {
         FileRecordLocator transactionLocator = new FileRecordLocatorCodec().transcode(io, obj.getTransactionLocator());
-        long blockHeight = Codecs.Int64.transcode(io, obj.getBlockHeight());
+        Long blockHeight = Codecs.Int64.transcode(io, obj.getBlockHeight());
         List<Option<InPoint>> outputsSpentBy = OptionalInPointListCodec.transcode(io, obj.getOutputsSpentBy()
                 .stream()
                 .map(Option::from)

@@ -1,7 +1,7 @@
 package com.rocketchain.utils.lang;
 
 public class HexUtil {
-    private static final String HEXES = "0123456789ABCDEF";
+    private static final String HEXES = "0123456789abcdef";
     private static final String HEX_HEADER = "0x";
 
     /**
@@ -41,8 +41,8 @@ public class HexUtil {
     public static String byteToHexString(byte value) {
         final StringBuilder hex = new StringBuilder(2);
         byte b = value;
-        hex.append(HEXES.charAt((b & 0xF0) >> 4))
-                .append(HEXES.charAt((b & 0x0F)));
+        hex.append(HEXES.charAt((b & 0xf0) >> 4))
+                .append(HEXES.charAt((b & 0x0f)));
         return hex.toString();
     }
 
@@ -59,8 +59,8 @@ public class HexUtil {
             throw new NullPointerException("Value to convert cannot be null");
         final StringBuilder hex = new StringBuilder(2 * value.length);
         for (final byte b : value) {
-            hex.append(HEXES.charAt((b & 0xF0) >> 4))
-                    .append(HEXES.charAt((b & 0x0F)));
+            hex.append(HEXES.charAt((b & 0xf0) >> 4))
+                    .append(HEXES.charAt((b & 0x0f)));
         }
         return hex.toString();
     }

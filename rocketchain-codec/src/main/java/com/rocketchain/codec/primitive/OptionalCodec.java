@@ -18,7 +18,7 @@ public class OptionalCodec<T> implements Codec<Option<T>> {
     @Override
     public Option<T> transcode(CodecInputOutputStream io, Option<T> obj) {
         if (io.getInput()) {
-            boolean hasValue = flagCodec.transcode(io, null);
+            Boolean hasValue = flagCodec.transcode(io, null);
             if (hasValue) {
                 return new Some(valueCodec.transcode(io, null));
             } else {
@@ -28,7 +28,7 @@ public class OptionalCodec<T> implements Codec<Option<T>> {
             Option optionObject = obj;
 
             if (optionObject instanceof None) {
-                flagCodec.transcode(io, true);
+                flagCodec.transcode(io, false);
             } else if (optionObject instanceof Some) {
                 flagCodec.transcode(io, true);
                 valueCodec.transcode(io, (T)((Some) optionObject).getValue());

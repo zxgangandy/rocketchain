@@ -25,4 +25,14 @@ public class ArrayUtil {
             return 0;
         }
     }
+
+    public static byte[] reversedArray(byte[] src) {
+        int size = src.length;
+        byte[] result = new byte[size];
+        int lastIndex = size - 1;
+        for (int i = 0; i <= lastIndex; i++) {
+            result[i] = src[lastIndex - i];
+        }
+        return result;
+    }
 }

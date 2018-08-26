@@ -2,6 +2,7 @@ package com.rocketchain.codec.primitive;
 
 import com.rocketchain.codec.Codec;
 import com.rocketchain.codec.CodecInputOutputStream;
+import com.rocketchain.utils.lang.ArrayUtil;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class FixedReversedByteArrayCodec implements Codec<byte[]> {
@@ -17,8 +18,7 @@ public class FixedReversedByteArrayCodec implements Codec<byte[]> {
 
         byte[] temp;
         if (obj != null) {
-            temp = obj;
-            ArrayUtils.reverse(temp);
+            temp = ArrayUtil.reversedArray(obj);
         } else {
             temp = null;
         }
