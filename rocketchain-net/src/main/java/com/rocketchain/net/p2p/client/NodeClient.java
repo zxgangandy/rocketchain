@@ -24,7 +24,7 @@ public class NodeClient implements AutoCloseable {
         this.peerSet = peerSet;
     }
 
-    public ChannelFuture connect(String ip, int port) {
+    public ChannelFuture connect(String address, int port) {
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(workerGroup);
 
@@ -32,22 +32,22 @@ public class NodeClient implements AutoCloseable {
         bootstrap.option(ChannelOption.SO_KEEPALIVE, true);
         bootstrap.option(ChannelOption.MESSAGE_SIZE_ESTIMATOR, DefaultMessageSizeEstimator.DEFAULT);
 
-        bootstrap.handler(new NodeClientInitializer(ip, port, peerSet));
+        bootstrap.handler(new NodeClientInitializer(address, port, peerSet));
 
-        logger.info("Connecting to ip {}, port {}", ip, port);
-        return bootstrap.connect().addListener(channelFuture -> {
+        logger.info("Connecting to ip {}, port {}", address, port);
+        return bootstrap.connect(address, port).addListener(channelFuture -> {
             if (channelFuture.isSuccess()) {
-                logger.info("Successfully connect to ip {}, port {}", ip, port);
+                logger.info("Successfully connect to ip {}, port {}", address, port);
                 return;
             }
             if (channelFuture.cause() != null) {
                 String cause = ExceptionUtil.cause(channelFuture.cause());
 
-                logger.error("Failed to connect to ip {}, port {}. Exception: {}", ip, port, cause);
+                logger.error("Failed to connect to address {}, port {}. Exception: {}", address, port, cause);
                 return;
             }
             if (channelFuture.isCancelled()) {
-                logger.warn("Cancelled to connect to ip {}, port {} has been cancelled", ip, port);
+                logger.warn("Cancelled to connect to address {}, port {} has been cancelled", address, port);
             }
         });
     }

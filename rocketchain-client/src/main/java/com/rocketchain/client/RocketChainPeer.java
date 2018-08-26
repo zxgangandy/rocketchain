@@ -95,6 +95,7 @@ public class RocketChainPeer {
         // Step 5 : Net Layer : Initialize peer to peer communication system, and
         // return the peer communicator that knows how to propagate blocks and transactions to peers.
 
+        PeerCommunicator communicator = initializeNetLayer(params, chain);
 
         // Step 6 : CLI Layer : Create a miner that gets list of transactions from the Blockchain
         // and create blocks to submmit to the Blockchain.
@@ -105,7 +106,7 @@ public class RocketChainPeer {
     }
 
 
-    private PeerCommunicator initializeNetLayer(Parameters params, Blockchain chain )  {
+    private static PeerCommunicator initializeNetLayer(Parameters params, Blockchain chain )  {
 //      (addr.address == "localhost" || addr.address == "127.0.0.1") && (addr.port == params.p2pInboundPort)
 
 
@@ -132,18 +133,17 @@ public class RocketChainPeer {
             peerAddresses = Config.get().peerAddresses();
         }
 
-        PeerCommunicator peerCommunicator = PeerToPeerNetworking.createPeerCommunicator(
-                params.getP2pInboundPort(),
-                peerAddresses.stream()
-                        .filter(peer->isMyself(peer, params.getApiInboundPort()))
-                        .collect(Collectors.toList()));
+        peerAddresses = peerAddresses.stream()
+                .filter(peer->!isMyself(peer, params.getP2pInboundPort()))
+                .collect(Collectors.toList());
+        PeerCommunicator communicator = PeerToPeerNetworking.createPeerCommunicator(params.getP2pInboundPort(), peerAddresses);
 
-        Node.create(peerCommunicator, chain);
+        Node.create(communicator, chain);
 
-        return peerCommunicator;
+        return communicator;
     }
 
-    private boolean isMyself(PeerAddress addr, int port)  {
+    private static boolean isMyself(PeerAddress addr, int port)  {
         return NetUtil.getLocalAddresses().contains(addr.getAddress()) && addr.getPort() == port;
     }
 
