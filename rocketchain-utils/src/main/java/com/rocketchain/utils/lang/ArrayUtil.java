@@ -1,5 +1,9 @@
 package com.rocketchain.utils.lang;
 
+import com.google.common.primitives.Bytes;
+
+import java.util.Arrays;
+
 public class ArrayUtil {
 
     public static int compare(byte[] left, byte[] right) {
@@ -35,4 +39,38 @@ public class ArrayUtil {
         }
         return result;
     }
+
+    /**
+     * pad an array with the given value.
+     *
+     * @param array        The input array. At the end of this array, the given value is padded.
+     * @param targetLength After padding, the length of the array becomes targetLength.
+     * @param value        The value to use for padding the input array.
+     * @return The newly padded array whose length is targetLength.
+     */
+    public static byte[] pad(byte[] array, int targetLength, byte value) {
+        if (targetLength > array.length) {
+            byte[] padArray = new byte[targetLength - array.length];
+
+            Arrays.fill(padArray, 0, padArray.length, value);
+            return Bytes.concat(array, padArray);
+        } else {
+            return array;
+        }
+    }
+
+    public static byte[] unpad(byte[] array, byte value )  {
+        int size = array.length;
+        int index = 0;
+        for (int i = size - 1; i>=0; i--) {
+            if (array[i] != value) {
+                index = i;
+                break;
+            }
+        }
+
+        return Arrays.copyOfRange(array, 0, index);
+    }
+
+
 }
