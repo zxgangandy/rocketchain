@@ -10,7 +10,11 @@ import java.util.stream.Collectors;
 
 public class BitcoinProtocol implements NetworkProtocol {
 
-    private static List<ProtocolMessageCodec> codes = ImmutableList.of(new VersionCodec(), new VerackCodec());
+    private static List<ProtocolMessageCodec> codes = ImmutableList.of(
+            new VersionCodec(),
+            new VerackCodec(),
+            new GetBlocksCodec(),
+            new AddrCodec());
 
     private Map<String, ProtocolMessageCodec> codecMapByCommand = codes.stream().
             collect(Collectors.toMap(ProtocolMessageCodec::getCommand, item -> item));

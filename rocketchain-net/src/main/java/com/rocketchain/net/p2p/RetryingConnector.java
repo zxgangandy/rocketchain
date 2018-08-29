@@ -29,7 +29,7 @@ public class RetryingConnector {
         channelFuture.addListener((ChannelFuture future) -> {
             Channel channel = future.channel();
             if (channelFuture.isSuccess()) {
-                logger.info("Sending version message to ${channel.remoteAddress()}");
+                logger.info("Sending version message to {}", channel.remoteAddress());
 
                 // Upon successful connection, send the version message.
                 channel.writeAndFlush(VersionFactory.create());
