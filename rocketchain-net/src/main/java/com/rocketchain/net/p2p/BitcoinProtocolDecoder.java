@@ -6,6 +6,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
 @ChannelHandler.Sharable
 public class BitcoinProtocolDecoder extends MessageToMessageDecoder<ByteBuf> {
 
-
+    private static final Logger logger = LoggerFactory.getLogger(BitcoinProtocolDecoder.class);
     /**
      * An incomplete message, which needs to receive more data to construct a complete message.
      *
@@ -36,9 +38,9 @@ public class BitcoinProtocolDecoder extends MessageToMessageDecoder<ByteBuf> {
         codec.decode(byteBuf, out);
 
         if (out.size() > 0) {
-            System.out.println("decoded : " + out.size());
+            logger.info("decoded : " + out.size());
         } else {
-            System.out.println("nothing decoded.");
+            logger.info("nothing decoded.");
         }
     }
 }
