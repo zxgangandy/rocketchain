@@ -61,6 +61,7 @@ public class NodeServerHandler extends SimpleChannelInboundHandler<ProtocolMessa
         assert(messageHandler != null);
         // Process the received message, and send message to peers if necessary.
 
+        logger.info("message: {}", message);
         messageHandler.handle(message);
     }
 }

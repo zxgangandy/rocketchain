@@ -3,6 +3,8 @@ package com.rocketchain.proto;
 import com.rocketchain.utils.lang.Bytes;
 import com.rocketchain.utils.lang.HexUtil;
 
+import java.util.Arrays;
+
 public class Checksum {
 
     private Bytes value;
@@ -15,6 +17,11 @@ public class Checksum {
 
     public static Checksum fromHex(String hexString) {
         return new Checksum(Bytes.from(hexString));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return Arrays.equals(value.getArray(), ((Checksum) obj).value.getArray());
     }
 
     @Override

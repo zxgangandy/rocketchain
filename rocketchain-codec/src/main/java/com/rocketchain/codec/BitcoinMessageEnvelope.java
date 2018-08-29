@@ -62,20 +62,20 @@ public class BitcoinMessageEnvelope {
     }
 
     public static boolean isMagicValid(Magic magic) {
-        return magic == BitcoinConfiguration.config.getMagic();
+        return magic.equals(BitcoinConfiguration.config.getMagic());
     }
 
     public static void verify(BitcoinMessageEnvelope envelope) {
 
-        if (!isMagicValid(envelope.magic))
+        if (!isMagicValid(envelope.getMagic()))
             throw new ProtocolCodecException(ErrorCode.IncorrectMagicValue);
 
-        if (envelope.length != envelope.payload.readableBytes())
+        if (envelope.length != envelope.getPayload().readableBytes())
             throw new ProtocolCodecException(ErrorCode.PayloadLengthMismatch);
 
         // BUGBUG : Try to avoid byte array copy.
-        byte[] payloadBytes = ByteBufUtil.getBytes(envelope.payload);
-        if (envelope.checksum != checksum(payloadBytes, 0, payloadBytes.length)) ;
+        byte[] payloadBytes = ByteBufUtil.getBytes(envelope.getPayload());
+        if (!envelope.getChecksum().equals(checksum(payloadBytes, 0, payloadBytes.length))) ;
         throw new ProtocolCodecException(ErrorCode.PayloadChecksumMismatch);
     }
 
