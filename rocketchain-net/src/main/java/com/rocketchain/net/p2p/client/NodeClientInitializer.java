@@ -1,5 +1,7 @@
 package com.rocketchain.net.p2p.client;
 
+import com.rocketchain.net.p2p.BitcoinProtocolDecoder;
+import com.rocketchain.net.p2p.BitcoinProtocolEncoder;
 import com.rocketchain.net.p2p.PeerSet;
 import com.rocketchain.net.p2p.handler.NodeClientHandler;
 import io.netty.channel.ChannelInitializer;
@@ -21,7 +23,8 @@ public class NodeClientInitializer extends ChannelInitializer<NioSocketChannel> 
     protected void initChannel(NioSocketChannel nioSocketChannel) throws Exception {
         ChannelPipeline pipeline = nioSocketChannel.pipeline();
 
-
+        pipeline.addLast(new BitcoinProtocolDecoder());
+        pipeline.addLast(new BitcoinProtocolEncoder());
         // and then business logic.
         pipeline.addLast(new NodeClientHandler(peerSet));
     }

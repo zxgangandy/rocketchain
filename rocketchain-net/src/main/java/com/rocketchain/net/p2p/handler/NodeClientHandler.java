@@ -1,6 +1,7 @@
 package com.rocketchain.net.p2p.handler;
 
 import com.rocketchain.net.p2p.Peer;
+import com.rocketchain.net.p2p.PeerCommunicator;
 import com.rocketchain.net.p2p.PeerSet;
 import com.rocketchain.proto.ProtocolMessage;
 import io.netty.channel.ChannelHandlerContext;
@@ -24,7 +25,7 @@ public class NodeClientHandler extends SimpleChannelInboundHandler<ProtocolMessa
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, ProtocolMessage protocolMessage) throws Exception {
         if (protocolMessageHandler == null) {
             Peer peer = peerSet.add(channelHandlerContext.channel());
-            protocolMessageHandler = new ProtocolMessageHandler(peer);
+            protocolMessageHandler = new ProtocolMessageHandler(peer, new PeerCommunicator(peerSet));
         }
 
         // Process the received message, and send message to peers if necessary.
