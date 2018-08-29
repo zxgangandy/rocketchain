@@ -42,8 +42,8 @@ public class BitcoinMessageEnvelope {
         // OPTIMIZE : Directly calculate hash from the BitVector
         Hash256 hash = new HashFunctions().hash256(buffer, offset, length);
 
-        Arrays.copyOfRange(hash.getValue().getArray(), 0, Checksum.VALUE_SIZE);
-        return new Checksum(new Bytes(Arrays.copyOfRange(hash.getValue().getArray(), 0, Checksum.VALUE_SIZE)));
+        byte[] value = Arrays.copyOfRange(hash.getValue().getArray(), 0, Checksum.VALUE_SIZE);
+        return new Checksum(new Bytes(value));
     }
 
     public static BitcoinMessageEnvelope build(NetworkProtocol protocol, ProtocolMessage message) {
@@ -67,16 +67,19 @@ public class BitcoinMessageEnvelope {
 
     public static void verify(BitcoinMessageEnvelope envelope) {
 
-        if (!isMagicValid(envelope.getMagic()))
+        if (!isMagicValid(envelope.getMagic())) {
             throw new ProtocolCodecException(ErrorCode.IncorrectMagicValue);
+        }
 
-        if (envelope.length != envelope.getPayload().readableBytes())
+        if (envelope.length != envelope.getPayload().readableBytes()) {
             throw new ProtocolCodecException(ErrorCode.PayloadLengthMismatch);
+        }
 
         // BUGBUG : Try to avoid byte array copy.
         byte[] payloadBytes = ByteBufUtil.getBytes(envelope.getPayload());
-        if (!envelope.getChecksum().equals(checksum(payloadBytes, 0, payloadBytes.length))) ;
-        throw new ProtocolCodecException(ErrorCode.PayloadChecksumMismatch);
+        if (!envelope.getChecksum().equals(checksum(payloadBytes, 0, payloadBytes.length))) {
+            throw new ProtocolCodecException(ErrorCode.PayloadChecksumMismatch);
+        }
     }
 
     public Magic getMagic() {

@@ -69,7 +69,7 @@ public class ArrayUtil {
             }
         }
 
-        return Arrays.copyOfRange(array, 0, index);
+        return Arrays.copyOfRange(array, 0, index + 1);
     }
 
 
