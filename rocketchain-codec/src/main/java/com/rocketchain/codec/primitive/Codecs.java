@@ -2,6 +2,7 @@ package com.rocketchain.codec.primitive;
 
 import com.rocketchain.codec.Codec;
 import com.rocketchain.codec.InPointCodec;
+import com.rocketchain.codec.ProvideCodec;
 import com.rocketchain.codec.VariableStringCodec;
 import com.rocketchain.proto.InPoint;
 import com.rocketchain.utils.lang.Option;
@@ -67,5 +68,9 @@ public class Codecs {
 
     public static VariableStringCodec variableString(Codec<Long> lengthCodec) {
         return new VariableStringCodec(lengthCodec);
+    }
+
+    public static <T> ProvideCodec<T> provide(T objectSample ) {
+        return new ProvideCodec<T>(objectSample);
     }
 }

@@ -60,13 +60,13 @@ public class RetryingConnector {
 
                 // TODO : Do we need to check future.isCanceled()?
                 logger.info("Connection to {}:{} failed. Will try in a second.", address, port);
-                Timer timer = new Timer(true);
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        connect(address, port);
-                    }
-                }, retryIntervalSeconds * 1000);
+//                Timer timer = new Timer(true);
+//                timer.schedule(new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        connect(address, port);
+//                    }
+//                }, retryIntervalSeconds * 1000);
             }
         });
     }
