@@ -42,7 +42,8 @@ public class Node {
     /**
      * Return the best height if we received version message more than two thirds of total nodes.
      *
-     * @return Some(best Peer) that has the highest Version.startHeight if we received version message more than two thirds of total nodes. None otherwise.
+     * @return Some(best Peer) that has the highest Version.startHeight if we received version message
+     * more than two thirds of total nodes. None otherwise.
      */
     public Peer getBestPeer() {
         int maxPeerCount = Config.get().peerAddresses().size();
@@ -61,7 +62,6 @@ public class Node {
             List<PeerInfo> peers = peerInfos.stream()
                     .filter(item -> item.getStartingheight() != null)
                     .collect(Collectors.toList());
-
 
             if (peers.size() == peerInfos.size()) {
                 Peer bestPeer = peerCommunicator.getBestPeer();

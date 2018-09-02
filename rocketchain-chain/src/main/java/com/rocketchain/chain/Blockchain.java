@@ -12,6 +12,7 @@ import com.rocketchain.storage.index.KeyValueDatabase;
 import com.rocketchain.storage.index.TransactingKeyValueDatabase;
 import com.rocketchain.utils.exception.ChainException;
 import com.rocketchain.utils.exception.ErrorCode;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -250,6 +251,18 @@ public class Blockchain implements BlockchainView {
             throw new ChainException(ErrorCode.InvalidBlockHeight);
         }
         return blockHashOption;
+    }
+
+
+    /** Get a block searching by the header hash.
+     *
+     * Used by : getblock RPC.
+     *
+     * @param blockHash The header hash of the block to search.
+     * @return The searched block.
+     */
+    public Pair<BlockInfo, Block> getBlock(KeyValueDatabase db , Hash blockHash )  {
+        return storage.getBlock(db, blockHash);
     }
 
 
