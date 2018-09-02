@@ -9,7 +9,6 @@ import com.rocketchain.proto.Hash;
 import com.rocketchain.proto.Transaction;
 import com.rocketchain.storage.BlockStorage;
 import com.rocketchain.storage.index.KeyValueDatabase;
-import com.rocketchain.storage.index.TransactingKeyValueDatabase;
 import com.rocketchain.utils.exception.ChainException;
 import com.rocketchain.utils.exception.ErrorCode;
 import org.apache.commons.lang3.tuple.Pair;
@@ -79,14 +78,16 @@ public class Blockchain implements BlockchainView {
     private TransactionMagnet txMagnet;
     private BlockMagnet blockMagnet;
     private TransactionPool txPool;
+    private TransactionOrphanage txOrphanage;
 
     public Blockchain(KeyValueDatabase db, BlockStorage storage) {
         this.db = db;
         this.storage = storage;
 
-        this.txPool = new  TransactionPool(storage, txMagnet);
-        this.txMagnet = new TransactionMagnet(storage,  storage, storage);
+        this.txPool = new TransactionPool(storage, txMagnet);
+        this.txMagnet = new TransactionMagnet(storage, storage, storage);
         this.blockMagnet = new BlockMagnet(storage, txPool, txMagnet);
+        this.txOrphanage = new TransactionOrphanage(storage);
     }
 
     private static Blockchain theBlockchain = null;
@@ -97,6 +98,20 @@ public class Blockchain implements BlockchainView {
         // Load any in memory structur required by the Blockchain class from the on-disk storage.
         new BlockchainLoader(db, theBlockchain, storage).load();
         return theBlockchain;
+    }
+
+    public TransactionOrphanage getTxOrphanage() {
+        return txOrphanage;
+    }
+
+    /**
+     * Check if the transaction exists either in a block on the best blockchain or on the transaction pool.
+     *
+     * @param txHash The hash of the transaction to check the existence.
+     * @return true if we have the transaction; false otherwise.
+     */
+    public boolean hasTransaction(KeyValueDatabase db, Hash txHash) {
+        return storage.getTransactionDescriptor(db, txHash) != null || storage.getTransactionFromPool(db, txHash) != null;
     }
 
     /**
@@ -110,6 +125,25 @@ public class Blockchain implements BlockchainView {
 
     public static Blockchain get() {
         return theBlockchain;
+    }
+
+    /**
+     * Put a transaction we received from peers into the disk-pool.
+     *
+     * @param transaction The transaction to put into the disk-pool.
+     */
+    public void putTransaction(KeyValueDatabase db, Hash txHash, Transaction transaction) {
+        // TODO : BUGBUG : Need to start a RocksDB transaction.
+        try {
+            // Step 1 : Add transaction to the transaction pool.
+            txPool.addTransactionToPool(db, txHash, transaction);
+
+            // TODO : BUGBUG : Need to commit the RocksDB transaction.
+
+        } finally {
+            // TODO : BUGBUG : Need to rollback the RocksDB transaction if any exception raised.
+            // Only some of inputs might be connected. We need to revert the connection if any error happens.
+        }
     }
 
     /**
@@ -187,7 +221,7 @@ public class Blockchain implements BlockchainView {
 
                             // Step 3.B.2 : Reorganize the blocks.
                             // transaction handling, orphan block handling is done in this method.
-                            blockMagnet.reorganize(db, theBestBlock,  blockInfo);
+                            blockMagnet.reorganize(db, theBestBlock, blockInfo);
 
 
                             // Step 3.B.3 : Update the best block
@@ -213,7 +247,7 @@ public class Blockchain implements BlockchainView {
      * @param blockHash
      * @param blockInfo
      */
-    public void setBestBlock(KeyValueDatabase db , Hash blockHash ,BlockInfo  blockInfo )  {
+    public void setBestBlock(KeyValueDatabase db, Hash blockHash, BlockInfo blockInfo) {
         theBestBlock = blockInfo;
         storage.putBestBlockHash(db, blockHash);
     }
@@ -237,14 +271,15 @@ public class Blockchain implements BlockchainView {
 //    }
 
 
-    /** Get the hash of a block specified by the block height on the best blockchain.
-     *
+    /**
+     * Get the hash of a block specified by the block height on the best blockchain.
+     * <p>
      * Used by : getblockhash RPC.
      *
      * @param blockHeight The height of the block.
      * @return The hash of the block header.
      */
-    public Hash getBlockHash(KeyValueDatabase db , long blockHeight )  {
+    public Hash getBlockHash(KeyValueDatabase db, long blockHeight) {
         Hash blockHashOption = storage.getBlockHashByHeight(db, blockHeight);
         // TODO : Bitcoin Compatiblity : Make the error code compatible when the block height was a wrong value.
         if (blockHashOption == null) {
@@ -254,14 +289,15 @@ public class Blockchain implements BlockchainView {
     }
 
 
-    /** Get a block searching by the header hash.
-     *
+    /**
+     * Get a block searching by the header hash.
+     * <p>
      * Used by : getblock RPC.
      *
      * @param blockHash The header hash of the block to search.
      * @return The searched block.
      */
-    public Pair<BlockInfo, Block> getBlock(KeyValueDatabase db , Hash blockHash )  {
+    public Pair<BlockInfo, Block> getBlock(KeyValueDatabase db, Hash blockHash) {
         return storage.getBlock(db, blockHash);
     }
 

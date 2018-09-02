@@ -13,4 +13,10 @@ public class DB {
     public final static byte TRANSACTION_POOL = (byte)'d';
     // The index from transaction creation time to the transaction hash.
     public final static byte TRANSACTION_TIME = (byte)'e';
+
+
+    public final static byte ORPHAN_BLOCK = (byte)'1';
+    public final static byte ORPHAN_TRANSACTION = (byte)'2';
+    public final static byte ORPHAN_BLOCKS_BY_PARENT = (byte)'3';
+    public final static byte ORPHAN_TRANSACTIONS_BY_DEPENDENCY = (byte)'4';
 }

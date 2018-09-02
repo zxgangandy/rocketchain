@@ -1,5 +1,6 @@
 package com.rocketchain.storage;
 
+import com.rocketchain.codec.HashCodec;
 import com.rocketchain.codec.HashUtil;
 import com.rocketchain.proto.Block;
 import com.rocketchain.proto.BlockHeader;
@@ -12,7 +13,7 @@ import com.rocketchain.storage.index.TransactionTimeIndex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public interface BlockStorage extends BlockDatabase, BlockIndex , TransactionPoolIndex,TransactionTimeIndex, TransactionDescriptorIndex {
+public interface BlockStorage extends BlockDatabase, BlockIndex , TransactionPoolIndex,TransactionTimeIndex, TransactionDescriptorIndex, OrphanTransactionIndex {
     Logger logger = LoggerFactory.getLogger(BlockStorage.class);
 
      void putBlock(KeyValueDatabase db , Hash blockHash , Block block ) ;
@@ -32,6 +33,14 @@ public interface BlockStorage extends BlockDatabase, BlockIndex , TransactionPoo
         } else {
             return null;
         }
+    }
+
+    /** Delete a specific orphan transaction.
+     *
+     * @param hash The hash of the orphan transaction.
+     */
+    default void delOrphanTransaction(KeyValueDatabase db , Hash hash )  {
+        db.delObject(new HashCodec(), DB.ORPHAN_TRANSACTION, hash);
     }
 
     default void putBlock(KeyValueDatabase db , Block block  )  {
