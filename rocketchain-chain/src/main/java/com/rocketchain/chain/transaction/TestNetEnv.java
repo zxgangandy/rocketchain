@@ -7,6 +7,10 @@ import com.rocketchain.utils.lang.HexUtil;
 
 public class TestNetEnv extends NetEnv {
 
+    public TestNetEnv() {
+        PubkeyAddressVersion = (byte)0;
+    }
+
     @Override
     public Hash getGenesisBlockHash() {
         return Hash.from("000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943");
@@ -38,4 +42,5 @@ public class TestNetEnv extends NetEnv {
 
         return new BlockCodec().decode(HexUtil.hexStringToByteArray(blockHex));
     }
+
 }
