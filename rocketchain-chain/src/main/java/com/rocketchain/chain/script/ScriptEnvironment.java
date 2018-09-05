@@ -36,4 +36,12 @@ public class ScriptEnvironment {
     // The altStack is necessary to support OP_TOALTSTACK and OP_FROMALTSTACK,
     // which moves items on top of the stack and the alternative stack.
     private ScriptStack altStack = new  ScriptStack();
+
+    public ScriptStack getStack() {
+        return stack;
+    }
+
+    public ScriptStack getAltStack() {
+        return altStack;
+    }
 }

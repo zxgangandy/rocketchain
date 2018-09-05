@@ -21,7 +21,13 @@ public enum ErrorCode {
     IncorrectMagicValue(0x40, "incorrect_magic_value"),
     DecodeFailure(0x41, "decode_failure"),
     PayloadLengthMismatch(0x42, "payload_length_mismatch"),
-    PayloadChecksumMismatch(0x43, "payload_checksum_mismatch");
+    PayloadChecksumMismatch(0x43, "payload_checksum_mismatch"),
+
+    TooBigScriptInteger(0x50, "too_big_script_integer"),
+    InvalidTransaction(0x51, "invalid_transaction"),
+    NotEnoughInput(0x52, "not_enough_input"),
+    NotEnoughScriptData(0x53, "not_enough_script_data"),
+    TooManyPublicKeys(0x54, "too_many_public_keys");
 
     private int errCode;
     private String desc;
