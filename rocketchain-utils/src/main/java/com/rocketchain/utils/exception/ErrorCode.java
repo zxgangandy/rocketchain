@@ -29,7 +29,14 @@ public enum ErrorCode {
     NotEnoughScriptData(0x53, "not_enough_script_data"),
     TooManyPublicKeys(0x54, "too_many_public_keys"),
     // Base58 encoding errors
-    InvalidChecksum(0x55, "invalid_checksum");
+    InvalidChecksum(0x55, "invalid_checksum"),
+
+
+    NotEnoughTransactionInput(0x60, "not_enough_transaction_input"),
+    NotEnoughTransactionOutput(0x61, "not_enough_transaction_output"),
+    NotEnoughInputAmounts(0x62, "not_enough_input_amounts"),
+    GenerationInputWithOtherInputs(0x63, "generation_input_with_other_inputs"),
+    SpendingOutputNotFound(0x64, "spending_output_not_found");
 
 
     private int errCode;

@@ -8,7 +8,7 @@ import java.util.Iterator;
 
 /** The read-only view of the best blockchain.
  */
-public interface BlockchainView {
+public interface BlockchainView  extends CoinsView{
 
     /** Return an iterator that iterates each ChainBlock.
      *

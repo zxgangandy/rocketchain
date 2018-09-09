@@ -3,12 +3,10 @@ package com.rocketchain.chain;
 import com.rocketchain.chain.transaction.BlockchainView;
 import com.rocketchain.chain.transaction.ChainBlock;
 import com.rocketchain.codec.HashUtil;
-import com.rocketchain.proto.Block;
-import com.rocketchain.proto.BlockInfo;
-import com.rocketchain.proto.Hash;
-import com.rocketchain.proto.Transaction;
+import com.rocketchain.proto.*;
 import com.rocketchain.storage.BlockStorage;
 import com.rocketchain.storage.index.KeyValueDatabase;
+import com.rocketchain.storage.index.TransactionDescriptorIndex;
 import com.rocketchain.utils.exception.ChainException;
 import com.rocketchain.utils.exception.ErrorCode;
 import org.apache.commons.lang3.tuple.Pair;
@@ -16,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Maintains the best blockchain, whose chain work is the biggest one.
@@ -98,6 +97,10 @@ public class Blockchain implements BlockchainView {
         // Load any in memory structur required by the Blockchain class from the on-disk storage.
         new BlockchainLoader(db, theBlockchain, storage).load();
         return theBlockchain;
+    }
+
+    public TransactionDescriptorIndex txDescIndex() {
+        return storage;
     }
 
     public TransactionOrphanage getTxOrphanage() {
@@ -372,7 +375,53 @@ public class Blockchain implements BlockchainView {
         this.theBestBlock = theBestBlock;
     }
 
+
+    /**
+     * Get the block info of a block searching by a block hash.
+     * <p>
+     * Used by BlockLocator to get the info of the given block.
+     *
+     * @param blockHash The hash of the block to get the info of it.
+     * @return Some(blockInfo) if the block exists; None otherwise.
+     */
+    public BlockInfo getBlockInfo(KeyValueDatabase db, Hash blockHash) {
+        return storage.getBlockInfo(db, blockHash);
+    }
+
     public KeyValueDatabase getDb() {
         return db;
+    }
+
+    public TransactionPool getTxPool() {
+        return txPool;
+    }
+
+    /**
+     * Return a transaction output specified by a give out point.
+     *
+     * @param outPoint The outpoint that points to the transaction output.
+     * @return The transaction output we found.
+     */
+    @Override
+    public TransactionOutput getTransactionOutput(KeyValueDatabase db, OutPoint outPoint) {
+        // Coinbase outpoints should never come here
+        assert (!outPoint.getTransactionHash().isAllZero());
+
+        Transaction transaction = getTransaction(db, outPoint.getTransactionHash());
+        if (transaction == null) {
+            String message = "The transaction pointed by an outpoint was not found : " + outPoint.getTransactionHash();
+            logger.error(message);
+            throw new ChainException(ErrorCode.InvalidTransactionOutPoint, message);
+        }
+
+        List<TransactionOutput> outputs = transaction.getOutputs();
+
+        if (outPoint.getOutputIndex() < 0 || outPoint.getOutputIndex() >= outputs.size()) {
+            String message = "Invalid output index. Transaction hash : {}, Output count : {}, Output index : {}, transaction : {}";
+            logger.error(message, outPoint.getTransactionHash(), outputs.size(), outPoint.getOutputIndex(), transaction);
+            throw new ChainException(ErrorCode.InvalidTransactionOutPoint, message);
+        }
+
+        return outputs.get(outPoint.getOutputIndex());
     }
 }

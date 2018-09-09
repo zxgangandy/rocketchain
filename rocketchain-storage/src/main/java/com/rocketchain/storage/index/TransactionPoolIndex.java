@@ -24,8 +24,6 @@ public interface TransactionPoolIndex {
         return DB.TRANSACTION_POOL;
     }
 
-    ;
-
     /**
      * Put a transaction into the transaction pool.
      *

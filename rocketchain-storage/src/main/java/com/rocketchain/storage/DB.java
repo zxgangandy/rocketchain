@@ -14,6 +14,11 @@ public class DB {
     // The index from transaction creation time to the transaction hash.
     public final static byte TRANSACTION_TIME = (byte)'e';
 
+    // A temporary transaction pool for checking transaction attach-ability while creating blocks.
+    public final static byte TEMP_TRANSACTION_POOL = (byte)'y';
+    // A temporary transaction time index for checking transaction attach-ability while creating blocks.
+    public final static byte TEMP_TRANSACTION_TIME = (byte)'z';
+
 
     public final static byte ORPHAN_BLOCK = (byte)'1';
     public final static byte ORPHAN_TRANSACTION = (byte)'2';
