@@ -9,6 +9,7 @@ public class TestNetEnv extends NetEnv {
 
     public TestNetEnv() {
         PubkeyAddressVersion = (byte)0;
+        SecretKeyVersion = (byte)239;
     }
 
     @Override
