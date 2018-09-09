@@ -27,7 +27,10 @@ public enum ErrorCode {
     InvalidTransaction(0x51, "invalid_transaction"),
     NotEnoughInput(0x52, "not_enough_input"),
     NotEnoughScriptData(0x53, "not_enough_script_data"),
-    TooManyPublicKeys(0x54, "too_many_public_keys");
+    TooManyPublicKeys(0x54, "too_many_public_keys"),
+    // Base58 encoding errors
+    InvalidChecksum(0x55, "invalid_checksum");
+
 
     private int errCode;
     private String desc;

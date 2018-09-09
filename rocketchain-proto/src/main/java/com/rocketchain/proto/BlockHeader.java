@@ -31,6 +31,10 @@ public class BlockHeader {
                 '}';
     }
 
+    public void setNonce(Long nonce) {
+        this.nonce = nonce;
+    }
+
     public int getVersion() {
         return version;
     }

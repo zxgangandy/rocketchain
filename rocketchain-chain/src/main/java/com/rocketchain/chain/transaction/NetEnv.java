@@ -17,6 +17,8 @@ public abstract class NetEnv {
      */
     protected byte ScriptAddressVersion = 0;
 
+    protected byte SecretKeyVersion ;
+
     public abstract Hash getGenesisBlockHash();
 
     public abstract Block getGenesisBlock();
