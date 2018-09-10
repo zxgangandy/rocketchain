@@ -16,4 +16,8 @@ public class Script {
     public byte get(int i) {
         return data.getArray()[i];
     }
+
+    public Bytes getData() {
+        return data;
+    }
 }
