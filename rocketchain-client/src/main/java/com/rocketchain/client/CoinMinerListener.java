@@ -1,6 +1,6 @@
 package com.rocketchain.client;
 
-import com.rocketchain.chain.transaction.CoinAddress;
+import com.rocketchain.proto.CoinAddress;
 import com.rocketchain.proto.Block;
 
 public interface CoinMinerListener {
