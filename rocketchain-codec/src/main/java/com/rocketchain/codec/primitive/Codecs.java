@@ -18,6 +18,7 @@ public class Codecs {
 
     public static Int32LCodec Int32L = new Int32LCodec();
     public static UInt32LCodec UInt32L = new UInt32LCodec();
+    public static Int32Codec Int32 = new Int32Codec();
 
     public static Int64Codec Int64 = new Int64Codec();
     public static Int64LCodec Int64L = new Int64LCodec();

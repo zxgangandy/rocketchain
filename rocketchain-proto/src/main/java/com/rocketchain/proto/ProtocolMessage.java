@@ -1,4 +1,4 @@
 package com.rocketchain.proto;
 
-public interface ProtocolMessage {
+public interface ProtocolMessage extends Transcodable {
 }

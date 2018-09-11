@@ -30,6 +30,7 @@
         <module>rocketchain-storage</module>
         <module>rocketchain-proto</module>
         <module>rocketchain-codec</module>
+        <module>rocketchain-wallet</module>
     </modules>
 
     <dependencyManagement>

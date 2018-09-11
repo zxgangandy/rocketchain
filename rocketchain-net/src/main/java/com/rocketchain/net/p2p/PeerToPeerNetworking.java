@@ -29,4 +29,9 @@ public class PeerToPeerNetworking {
         peerCommunicator = new PeerCommunicator(peerSet);
         return peerCommunicator;
     }
+
+
+    public static PeerCommunicator getPeerCommunicator() {
+        return peerCommunicator;
+    }
 }
