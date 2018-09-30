@@ -36,7 +36,17 @@ public enum ErrorCode {
     NotEnoughTransactionOutput(0x61, "not_enough_transaction_output"),
     NotEnoughInputAmounts(0x62, "not_enough_input_amounts"),
     GenerationInputWithOtherInputs(0x63, "generation_input_with_other_inputs"),
-    SpendingOutputNotFound(0x64, "spending_output_not_found");
+    SpendingOutputNotFound(0x64, "spending_output_not_found"),
+
+
+    // Transaction verification errors
+     InvalidInputIndex (0x70, "invalid_input_index"),
+     TopValueFalse (0x71, "top_value_false"),
+     ScriptParseFailure(0x72, "script_parse_failure"),
+     ScriptEvalFailure (0x73, "script_eval_failure"),
+     GeneralFailure(0x74, "general_failure"),
+     UnsupportedHashType(0x75, "unsupported_hash_type"),
+     NotEnoughStackValues(0x76, "not_enough_stack_values");
 
 
     private int errCode;
