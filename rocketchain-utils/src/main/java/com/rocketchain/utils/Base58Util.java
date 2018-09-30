@@ -39,4 +39,13 @@ public class Base58Util {
             encode1(builder, x);
         }
     }
+
+
+    public static byte[] decode(String input)  {
+        val zeroes = input.takeWhile{it == '1'}.map{0.toByte()}.toByteArray()
+        val trim  = input.dropWhile{it== '1'}.toList()
+        val decoded = trim.fold(BigInteger.ZERO, {a, b -> a.multiply(BigInteger.valueOf(58L)).add(BigInteger.valueOf(alphabetValue[b] ?: throw NoSuchElementException()))})
+        val result = if (trim.isEmpty()) zeroes else zeroes + decoded.toByteArray().dropWhile{it.toInt() == 0}.toByteArray() // BigInteger.toByteArray may add a leading 0x00
+        return result
+    }
 }
