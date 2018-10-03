@@ -9,6 +9,14 @@ public class TransactionInput {
         this.outputIndex = outputIndex;
     }
 
+    public void setOutputTransactionHash(Hash outputTransactionHash) {
+        this.outputTransactionHash = outputTransactionHash;
+    }
+
+    public void setOutputIndex(long outputIndex) {
+        this.outputIndex = outputIndex;
+    }
+
     public Hash getOutputTransactionHash() {
         return outputTransactionHash;
     }

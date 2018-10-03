@@ -40,18 +40,23 @@ public enum ErrorCode {
 
 
     // Transaction verification errors
-     InvalidInputIndex (0x70, "invalid_input_index"),
-     TopValueFalse (0x71, "top_value_false"),
-     ScriptParseFailure(0x72, "script_parse_failure"),
-     ScriptEvalFailure (0x73, "script_eval_failure"),
-     GeneralFailure(0x74, "general_failure"),
-     UnsupportedHashType(0x75, "unsupported_hash_type"),
-     NotEnoughStackValues(0x76, "not_enough_stack_values"),
+    InvalidInputIndex(0x70, "invalid_input_index"),
+    TopValueFalse(0x71, "top_value_false"),
+    ScriptParseFailure(0x72, "script_parse_failure"),
+    ScriptEvalFailure(0x73, "script_eval_failure"),
+    GeneralFailure(0x74, "general_failure"),
+    UnsupportedHashType(0x75, "unsupported_hash_type"),
+    NotEnoughStackValues(0x76, "not_enough_stack_values"),
 
 
     // Transaction Signer
-    UnableToSignCoinbaseTransaction (0x80, "unable_to_sign_coinbase_transaction"),
-    InvalidTransactionInput  (0x81, "invalid_transaction_input");
+    UnableToSignCoinbaseTransaction(0x80, "unable_to_sign_coinbase_transaction"),
+    InvalidTransactionInput(0x81, "invalid_transaction_input"),
+
+    // Parse errors
+    NoDataAfterCodeSparator(0x90, "no_data_after_code_separator"),
+    UnexpectedEndOfScript(0x91, "unexpected_end_of_script"),
+    InvalidSignatureFormat(0x92, "invalid_signature_format");
 
     private int errCode;
     private String desc;

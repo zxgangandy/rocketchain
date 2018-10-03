@@ -6,7 +6,11 @@ public class ScriptEnvironment {
     private Transaction transaction ;
     private int transactionInputIndex ;
 
-    public ScriptEnvironment(Transaction transaction, int transactionInputIndex) {
+    public ScriptEnvironment() {
+        this(null, null);
+    }
+
+    public ScriptEnvironment(Transaction transaction, Integer transactionInputIndex) {
         this.transaction = transaction;
         this.transactionInputIndex = transactionInputIndex;
     }

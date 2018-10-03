@@ -14,6 +14,22 @@ public class Transaction implements ProtocolMessage{
         this.lockTime = lockTime;
     }
 
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public void setInputs(List<TransactionInput> inputs) {
+        this.inputs = inputs;
+    }
+
+    public void setOutputs(List<TransactionOutput> outputs) {
+        this.outputs = outputs;
+    }
+
+    public void setLockTime(long lockTime) {
+        this.lockTime = lockTime;
+    }
+
     public int getVersion() {
         return version;
     }

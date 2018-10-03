@@ -15,6 +15,14 @@ public class NormalTransactionInput extends TransactionInput {
         this.sequenceNumber = sequenceNumber;
     }
 
+    public void setUnlockingScript(UnlockingScript unlockingScript) {
+        this.unlockingScript = unlockingScript;
+    }
+
+    public void setSequenceNumber(long sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+
     public NormalTransactionInput(Hash outputTransactionHash, long outputIndex) {
         super(outputTransactionHash, outputIndex);
     }
