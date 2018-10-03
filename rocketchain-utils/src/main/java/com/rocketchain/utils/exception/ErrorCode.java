@@ -46,8 +46,12 @@ public enum ErrorCode {
      ScriptEvalFailure (0x73, "script_eval_failure"),
      GeneralFailure(0x74, "general_failure"),
      UnsupportedHashType(0x75, "unsupported_hash_type"),
-     NotEnoughStackValues(0x76, "not_enough_stack_values");
+     NotEnoughStackValues(0x76, "not_enough_stack_values"),
 
+
+    // Transaction Signer
+    UnableToSignCoinbaseTransaction (0x80, "unable_to_sign_coinbase_transaction"),
+    InvalidTransactionInput  (0x81, "invalid_transaction_input");
 
     private int errCode;
     private String desc;

@@ -23,6 +23,14 @@ public class OpPush implements Constant {
         this.inputValue = inputValue;
     }
 
+    public int getByteCount() {
+        return byteCount;
+    }
+
+    public ScriptValue getInputValue() {
+        return inputValue;
+    }
+
     // 0x00 is the base value for opCode. The actual op code is calculated by adding byteCount.
     @Override
     public OpCode opCode() {
