@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class Config {
     public static int MAX_BLOCK_SIZE = 1024 * 1024;
+    public static int MAX_PUBLIC_KEYS_FOR_MULTSIG = 20;
     private com.typesafe.config.Config config;
 
     private static Config theConfig = new Config(ConfigFactory.parseFile(

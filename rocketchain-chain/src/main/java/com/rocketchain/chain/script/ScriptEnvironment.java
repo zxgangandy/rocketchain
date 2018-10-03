@@ -4,7 +4,7 @@ import com.rocketchain.proto.Transaction;
 
 public class ScriptEnvironment {
     private Transaction transaction ;
-    private int transactionInputIndex ;
+    private Integer transactionInputIndex ;
 
     public ScriptEnvironment() {
         this(null, null);
@@ -13,6 +13,14 @@ public class ScriptEnvironment {
     public ScriptEnvironment(Transaction transaction, Integer transactionInputIndex) {
         this.transaction = transaction;
         this.transactionInputIndex = transactionInputIndex;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public Integer getTransactionInputIndex() {
+        return transactionInputIndex;
     }
 
     // BUGBUG : if OP_CHECKSIG or OP_CHECKMULTISIG runs without OP_CODESEPARATOR,

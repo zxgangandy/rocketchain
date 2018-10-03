@@ -56,7 +56,17 @@ public enum ErrorCode {
     // Parse errors
     NoDataAfterCodeSparator(0x90, "no_data_after_code_separator"),
     UnexpectedEndOfScript(0x91, "unexpected_end_of_script"),
-    InvalidSignatureFormat(0x92, "invalid_signature_format");
+    InvalidSignatureFormat(0x92, "invalid_signature_format"),
+
+    // RPC errors
+    RpcRequestParseFailure (0xa0, "rpc_request_parse_failure"),
+    RpcParameterTypeConversionFailure (0xa1, "rpc_parameter_type_conversion_failure"),
+    RpcMissingRequiredParameter (0xa2, "rpc_missing_required_parameter"),
+    RpcArgumentLessThanMinValue (0xa3, "rpc_argument_less_than_min_value"),
+    RpcArgumentGreaterThanMaxValue (0xa4, "rpc_argument_greater_than_max_value"),
+    RpcInvalidAddress(0xa5, "invalid_address"),
+    RpcInvalidKey(0xa6, "invalid_key"),
+    RpcInvalidParameter(0xa7, "rpc_invalid_parameter");
 
     private int errCode;
     private String desc;
