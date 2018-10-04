@@ -1,6 +1,6 @@
-package com.rocketchain.chain.script;
+package com.rocketchain.script;
 
-import com.rocketchain.chain.script.op.ScriptOp;
+import com.rocketchain.script.ops.ScriptOp;
 
 public class ScriptInterpreter {
     /** Execute a parsed script. Return the value on top of the stack after the script execution.

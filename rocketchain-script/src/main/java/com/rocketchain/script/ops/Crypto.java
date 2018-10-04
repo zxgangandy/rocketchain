@@ -1,4 +1,4 @@
-package com.rocketchain.chain.script.ops;
+package com.rocketchain.script.ops;
 
 public interface Crypto extends ScriptOp {
 }

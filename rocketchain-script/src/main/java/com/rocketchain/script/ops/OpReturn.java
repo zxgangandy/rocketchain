@@ -1,4 +1,4 @@
-package com.rocketchain.chain.script.op;
+package com.rocketchain.script.ops;
 
 public class OpReturn implements InvalidScriptOpIfExecuted {
     @Override

@@ -1,4 +1,4 @@
-package com.rocketchain.chain.script;
+package com.rocketchain.script;
 
 import com.rocketchain.utils.exception.ErrorCode;
 import com.rocketchain.utils.exception.ScriptEvalException;
@@ -65,7 +65,7 @@ public abstract class ScriptValue {
         return new ScriptInteger(value);
     }
 
-    public static byte[] staticencodeStackInt(BigInteger value) {
+    public static byte[] encodeStackInt(BigInteger value) {
         return Utils.reverseBytes(Utils.encodeMPI(value, false));
     }
 

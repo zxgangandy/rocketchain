@@ -1,6 +1,6 @@
-package com.rocketchain.chain.script;
+package com.rocketchain.script;
 
-import com.rocketchain.chain.script.op.ScriptOp;
+import com.rocketchain.script.ops.ScriptOp;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.rocketchain.chain.script;
+package com.rocketchain.script;
 
 import java.util.Arrays;
 

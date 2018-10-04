@@ -1,8 +1,8 @@
-package com.rocketchain.chain.script.op;
+package com.rocketchain.script.ops;
 
 import com.google.common.collect.ImmutableMap;
-import com.rocketchain.chain.script.ScriptEnvironment;
-import com.rocketchain.chain.script.ScriptValue;
+import com.rocketchain.script.ScriptEnvironment;
+import com.rocketchain.script.ScriptValue;
 import com.rocketchain.proto.Script;
 import com.rocketchain.utils.exception.ErrorCode;
 import com.rocketchain.utils.exception.ScriptEvalException;
@@ -15,6 +15,10 @@ public class OpPushData implements Constant {
 
     private int lengthBytes;
     private ScriptValue inputValue ;
+
+    public OpPushData(int lengthBytes) {
+        this(lengthBytes, null);
+    }
 
     public OpPushData(int lengthBytes, ScriptValue inputValue) {
         this.lengthBytes = lengthBytes;

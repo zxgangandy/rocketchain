@@ -31,6 +31,7 @@
         <module>rocketchain-proto</module>
         <module>rocketchain-codec</module>
         <module>rocketchain-wallet</module>
+        <module>rocketchain-script</module>
     </modules>
 
     <dependencyManagement>

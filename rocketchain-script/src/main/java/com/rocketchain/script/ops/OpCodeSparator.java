@@ -1,7 +1,6 @@
-package com.rocketchain.chain.script.ops;
+package com.rocketchain.script.ops;
 
-import com.rocketchain.chain.script.ScriptEnvironment;
-import com.rocketchain.chain.script.op.OpCode;
+import com.rocketchain.script.ScriptEnvironment;
 import com.rocketchain.proto.Script;
 import com.rocketchain.utils.exception.ErrorCode;
 import com.rocketchain.utils.exception.ScriptParseException;

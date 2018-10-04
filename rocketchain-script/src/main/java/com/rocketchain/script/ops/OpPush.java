@@ -1,7 +1,7 @@
-package com.rocketchain.chain.script.op;
+package com.rocketchain.script.ops;
 
-import com.rocketchain.chain.script.ScriptEnvironment;
-import com.rocketchain.chain.script.ScriptValue;
+import com.rocketchain.script.ScriptEnvironment;
+import com.rocketchain.script.ScriptValue;
 import com.rocketchain.proto.Script;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.MutablePair;
@@ -14,6 +14,10 @@ public class OpPush implements Constant {
 
     private int byteCount;
     private ScriptValue inputValue;
+
+    public OpPush(int byteCount) {
+        this(byteCount, null);
+    }
 
     /**
      * 1-75(0x01-0x4b) : Push the next N bytes onto the stack, where N is 1 to 75 bytes

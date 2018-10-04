@@ -1,12 +1,10 @@
-package com.rocketchain.chain.script.ops;
+package com.rocketchain.script.ops;
 
 
-import com.rocketchain.chain.script.ScriptEnvironment;
-import com.rocketchain.chain.script.ScriptValue;
-import com.rocketchain.chain.script.op.OpCode;
+import com.rocketchain.script.ScriptEnvironment;
+import com.rocketchain.script.ScriptValue;
 import com.rocketchain.crypto.Hash160;
 import com.rocketchain.crypto.HashFunctions;
-import com.rocketchain.proto.Hash;
 import com.rocketchain.utils.exception.ErrorCode;
 import com.rocketchain.utils.exception.ScriptEvalException;
 
