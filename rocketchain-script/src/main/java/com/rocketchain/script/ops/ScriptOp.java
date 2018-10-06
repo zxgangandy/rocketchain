@@ -3,6 +3,8 @@ package com.rocketchain.script.ops;
 import com.rocketchain.script.ScriptEnvironment;
 import com.rocketchain.script.ScriptValue;
 import com.rocketchain.proto.Script;
+import com.rocketchain.utils.TernaryFunction;
+import com.rocketchain.utils.TriFunction;
 import com.rocketchain.utils.exception.ErrorCode;
 import com.rocketchain.utils.exception.ScriptEvalException;
 import com.rocketchain.utils.lang.Utils;
@@ -118,13 +120,13 @@ public interface ScriptOp {
         env.getStack().push( result );
     }
 
-//    default void ternaryOperation(ScriptEnvironment env , mutate : (ScriptValue, ScriptValue, ScriptValue) -> (ScriptValue) ) {
-//        val value3 = env.stack.pop();
-//        val value2 = env.stack.pop();
-//        val value1 =  env.stack.pop();
-//
-//        val result = mutate( value1, value2, value3 );
-//
-//        env.stack.push( result );
-//    }
+    default void ternaryOperation(ScriptEnvironment env , TernaryFunction<ScriptValue> triFunction) {
+        ScriptValue value3 = env.getStack().pop();
+        ScriptValue value2 = env.getStack().pop();
+        ScriptValue value1 =  env.getStack().pop();
+
+        ScriptValue result = triFunction.apply( value1, value2, value3 );
+
+        env.getStack().push( result );
+    }
 }

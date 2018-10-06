@@ -1,9 +1,9 @@
 package com.rocketchain.script;
 
 import com.google.common.collect.Lists;
+import com.rocketchain.codec.TransactionCodec;
 import com.rocketchain.script.ops.OpCodeSparator;
 import com.rocketchain.codec.CodecInputOutputStream;
-import com.rocketchain.codec.TransactionCodec;
 import com.rocketchain.crypto.Hash256;
 import com.rocketchain.crypto.HashFunctions;
 import com.rocketchain.proto.*;

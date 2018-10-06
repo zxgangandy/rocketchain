@@ -23,6 +23,10 @@ public class OpCheckSig extends CheckSig {
 
     private Script script ;
 
+    public OpCheckSig() {
+        this(null);
+    }
+
     public OpCheckSig(Script script) {
         this.script = script;
     }

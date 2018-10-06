@@ -16,12 +16,14 @@ public enum ErrorCode {
     TransactionOutputAlreadySpent(0x33, "transaction_output_already_spent"),
     TransactionOutputSpentByUnexpectedInput(0x34, "transaction_output_spent_by_unexpected_input"),
     ParentTransactionNotFound(0x35, "parent_transaction_not_found"),
+    DisabledScriptOperation(0x35, "disabled_script_operation"),
 
     // Protocol Decode errors
     IncorrectMagicValue(0x40, "incorrect_magic_value"),
     DecodeFailure(0x41, "decode_failure"),
     PayloadLengthMismatch(0x42, "payload_length_mismatch"),
     PayloadChecksumMismatch(0x43, "payload_checksum_mismatch"),
+    InvalidScriptOperation(0x44, "invalid_script_operation"),
 
     TooBigScriptInteger(0x50, "too_big_script_integer"),
     InvalidTransaction(0x51, "invalid_transaction"),
@@ -59,11 +61,11 @@ public enum ErrorCode {
     InvalidSignatureFormat(0x92, "invalid_signature_format"),
 
     // RPC errors
-    RpcRequestParseFailure (0xa0, "rpc_request_parse_failure"),
-    RpcParameterTypeConversionFailure (0xa1, "rpc_parameter_type_conversion_failure"),
-    RpcMissingRequiredParameter (0xa2, "rpc_missing_required_parameter"),
-    RpcArgumentLessThanMinValue (0xa3, "rpc_argument_less_than_min_value"),
-    RpcArgumentGreaterThanMaxValue (0xa4, "rpc_argument_greater_than_max_value"),
+    RpcRequestParseFailure(0xa0, "rpc_request_parse_failure"),
+    RpcParameterTypeConversionFailure(0xa1, "rpc_parameter_type_conversion_failure"),
+    RpcMissingRequiredParameter(0xa2, "rpc_missing_required_parameter"),
+    RpcArgumentLessThanMinValue(0xa3, "rpc_argument_less_than_min_value"),
+    RpcArgumentGreaterThanMaxValue(0xa4, "rpc_argument_greater_than_max_value"),
     RpcInvalidAddress(0xa5, "invalid_address"),
     RpcInvalidKey(0xa6, "invalid_key"),
     RpcInvalidParameter(0xa7, "rpc_invalid_parameter");
