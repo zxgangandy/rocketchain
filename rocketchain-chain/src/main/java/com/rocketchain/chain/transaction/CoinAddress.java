@@ -18,6 +18,23 @@ public class CoinAddress implements OutputOwnership {
         this.publicKeyHash = publicKeyHash;
     }
 
+    public byte getVersion() {
+        return version;
+    }
+
+    public Bytes getPublicKeyHash() {
+        return publicKeyHash;
+    }
+
+    /** Return the address in base58 encoding format.
+     *
+     * @return The base 58 check encoded address.
+     */
+    public String base58()  {
+        assert(isValid());
+        return Base58Check.encode(version, publicKeyHash.getArray());
+    }
+
     @Override
     public boolean isValid() {
         NetEnv env = NetEnvFactory.get();

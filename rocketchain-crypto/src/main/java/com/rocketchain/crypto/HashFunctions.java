@@ -12,6 +12,21 @@ import org.spongycastle.crypto.digests.RIPEMD160Digest;
 public class HashFunctions {
 
     /**
+     *
+     * @param input
+     * @return
+     */
+    public static SHA1 sha1(byte[] input)  {
+        MessageDigest sha1md = null;
+        try {
+            sha1md = MessageDigest.getInstance("SHA-1");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return new SHA1( new Bytes( sha1md.digest(input) ) );
+    }
+
+    /**
      * Return SHA256(SHA256(x)) hash
      *
      * @param input
