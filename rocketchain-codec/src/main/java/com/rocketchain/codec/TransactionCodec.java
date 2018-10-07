@@ -8,9 +8,14 @@ import com.rocketchain.proto.TransactionOutput;
 
 import java.util.List;
 
-public class TransactionCodec implements Codec<Transaction> {
+public class TransactionCodec extends ProtocolMessageCodec<Transaction> {
     private VariableListCodec TransactionInputListCodec = Codecs.variableListOf(new TransactionInputCodec());
     private VariableListCodec TransactionOutputListCodec = Codecs.variableListOf(new TransactionOutputCodec());
+
+    public TransactionCodec() {
+        command = "tx";
+        clazz = Transaction.class;
+    }
 
     @Override
     public Transaction transcode(CodecInputOutputStream io, Transaction obj) {

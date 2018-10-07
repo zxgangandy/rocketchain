@@ -8,6 +8,7 @@ import com.rocketchain.proto.InPoint;
 import com.rocketchain.utils.lang.Option;
 
 import java.nio.charset.Charset;
+import java.util.Map;
 
 public class Codecs {
     public static BooleanCodec Boolean = new BooleanCodec();
@@ -73,5 +74,11 @@ public class Codecs {
 
     public static <T> ProvideCodec<T> provide(T objectSample ) {
         return new ProvideCodec<T>(objectSample);
+    }
+
+    public static <valueT> Codec<valueT> polymorphicCodec(Codec typeIndicatorCodec ,
+                                                                 Map typeClassNameToTypeIndicatorMap,
+                                                                 Map typeIndicatorToCodecMap) {
+        return new PolymorphicCodec(typeIndicatorCodec, typeClassNameToTypeIndicatorMap, typeIndicatorToCodecMap);
     }
 }
