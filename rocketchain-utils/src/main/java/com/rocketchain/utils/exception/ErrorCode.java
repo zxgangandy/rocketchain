@@ -68,7 +68,12 @@ public enum ErrorCode {
     RpcArgumentGreaterThanMaxValue(0xa4, "rpc_argument_greater_than_max_value"),
     RpcInvalidAddress(0xa5, "invalid_address"),
     RpcInvalidKey(0xa6, "invalid_key"),
-    RpcInvalidParameter(0xa7, "rpc_invalid_parameter");
+    RpcInvalidParameter(0xa7, "rpc_invalid_parameter"),
+
+
+    // Wallet Exceptions
+    OwnershipNotFound(0xb0, "ownership_not_found"),
+    WalletOutputNotFound(0xb1, "wallet_output_not_found");
 
     private int errCode;
     private String desc;

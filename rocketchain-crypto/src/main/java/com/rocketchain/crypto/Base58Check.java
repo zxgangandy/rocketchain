@@ -2,6 +2,11 @@ package com.rocketchain.crypto;
 
 import com.google.common.primitives.Bytes;
 import com.rocketchain.utils.Base58Util;
+import com.rocketchain.utils.exception.ErrorCode;
+import com.rocketchain.utils.exception.GeneralException;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Arrays;
 
@@ -32,5 +37,25 @@ public class Base58Check {
     private static String encode(byte[] prefix, byte[] data) {
         byte[] prefixAndData = Bytes.concat(prefix, data);
         return Base58Util.encode(Bytes.concat(prefixAndData, checksum(prefixAndData)));
+    }
+
+    /**
+     * Decodes Base58 data that has been encoded with a single byte prefix
+     *
+     * @param encoded encoded data
+     * @return a (prefix, data) tuple
+     * @throws RuntimeException if the checksum that is part of the encoded data cannot be verified
+     */
+    public static Pair<Byte, byte[]> decode(String encoded)  {
+        byte[] raw = Base58Util.decode(encoded);
+        int length = raw.length;
+        byte[] versionAndHash  = Arrays.copyOfRange(raw, 0, length -4);
+        byte[] checksum  = Arrays.copyOfRange(raw, length -4, length);
+        if (!Arrays.equals(checksum, Base58Check.checksum(versionAndHash))) {
+            throw new GeneralException(ErrorCode.InvalidChecksum);
+        }
+
+        byte[] temp = Arrays.copyOfRange(versionAndHash, 1, versionAndHash.length);
+        return new MutablePair<>(versionAndHash[0], temp);
     }
 }

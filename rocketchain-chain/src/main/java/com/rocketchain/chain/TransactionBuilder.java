@@ -1,12 +1,12 @@
 package com.rocketchain.chain;
 
 import com.google.common.collect.Lists;
-import com.rocketchain.chain.script.ScriptSerializer;
-import com.rocketchain.chain.script.op.OpPush;
-import com.rocketchain.chain.script.op.OpReturn;
-import com.rocketchain.chain.script.op.ScriptOp;
 import com.rocketchain.chain.transaction.*;
 import com.rocketchain.proto.*;
+import com.rocketchain.script.ScriptSerializer;
+import com.rocketchain.script.ops.OpPush;
+import com.rocketchain.script.ops.OpReturn;
+import com.rocketchain.script.ops.ScriptOp;
 import com.rocketchain.storage.index.KeyValueDatabase;
 import com.rocketchain.utils.exception.ErrorCode;
 import com.rocketchain.utils.exception.GeneralException;
