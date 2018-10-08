@@ -13,7 +13,7 @@ public class WalletTransaction implements Transcodable {
     // Only returned for confirmed transactions.
     // The block height of the block on the local best block chain which includes this transaction
     // P1
-    private long blockIndex; // 11,
+    private Long blockIndex; // 11,
     // Only returned for confirmed transactions.
     // The block header time (Unix epoch time) of the block on the local best block chain which includes this transaction
     // P1
@@ -41,7 +41,7 @@ public class WalletTransaction implements Transcodable {
     // The transaction related with this wallet transaction.
     private Transaction transaction;
 
-    public WalletTransaction(Hash blockHash, long blockIndex, long blockTime, Hash transactionId, long addedTime,
+    public WalletTransaction(Hash blockHash, Long blockIndex, long blockTime, Hash transactionId, long addedTime,
                              int transactionIndex, Transaction transaction) {
         this.blockHash = blockHash;
         this.blockIndex = blockIndex;
@@ -56,7 +56,7 @@ public class WalletTransaction implements Transcodable {
         return blockHash;
     }
 
-    public long getBlockIndex() {
+    public Long getBlockIndex() {
         return blockIndex;
     }
 
