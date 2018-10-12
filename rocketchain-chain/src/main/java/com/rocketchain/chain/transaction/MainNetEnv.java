@@ -5,6 +5,9 @@ import com.rocketchain.proto.Hash;
 
 public class MainNetEnv extends NetEnv  {
 
+    public MainNetEnv() {
+        CoinbaseMaturity = 100;
+    }
 
     @Override
     public Hash getGenesisBlockHash() {

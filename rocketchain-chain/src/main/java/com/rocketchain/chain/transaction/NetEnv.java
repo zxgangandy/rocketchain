@@ -19,6 +19,8 @@ public abstract class NetEnv {
 
     protected byte SecretKeyVersion ;
 
+    public int CoinbaseMaturity;
+
     public abstract Hash getGenesisBlockHash();
 
     public abstract Block getGenesisBlock();
